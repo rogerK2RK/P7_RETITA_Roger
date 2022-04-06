@@ -1,0 +1,124 @@
+* {
+  font-family: 'Lato';
+  font-style: normal;
+}
+
+body {
+  margin: 100px;
+}
+
+#title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #D04F4F;
+}
+
+#barreDeRecherche {
+  width: 100%;
+  background: #E7E7E7;
+  border-radius: 5px;
+  margin-bottom: 50px;
+  border: none;
+  height: 55px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.all_recipes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.all_recipes__articles {
+  width: 30%;
+  background-color: #E7E7E7;
+  margin-bottom: 50px;
+  height: 364px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 5px;
+}
+
+.all_recipes__articles__images {
+  width: 100%;
+  height: 178px;
+  background-color: #C7BEBE;
+}
+
+.all_recipes__articles__nomRecette {
+  position: absolute;
+  left: 5.26%;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 62%;
+}
+
+.all_recipes__articles__picto {
+  position: absolute;
+  top: 55%;
+  right: 25%;
+  bottom: 26.67%;
+}
+
+.all_recipes__articles__dures {
+  position: absolute;
+  right: 5.26%;
+  top: 49%;
+  bottom: 26.67%;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.all_recipes__articles__ingredients {
+  position: absolute;
+  left: 5.26%;
+  right: 49.74%;
+  top: 62%;
+  bottom: -16.33%;
+  margin: 0px;
+  height: 30%;
+  font-weight: 400;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.all_recipes__articles__ingredients__nameIngredient {
+  font-weight: 700;
+}
+
+.all_recipes__articles__descritpion {
+  position: absolute;
+  left: 55.26%;
+  right: 4.74%;
+  top: 63%;
+  bottom: -16.33%;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 100%;
+  height: 29%;
+  margin: 0px;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+}
+/*# sourceMappingURL=main.css.map */
