@@ -25,7 +25,8 @@ async function displayData(recipes) {
 const barreDeRecherche = document.querySelector("#barreDeRecherche");
 
 barreDeRecherche.addEventListener("keyup", function(e){
-    const rechercheLettre = e.target.value;const allResultatRechercheRectte = [];
+    const rechercheLettre = e.target.value;
+    const allResultatRechercheRectte = [];
     const cards = document.querySelectorAll(".all_recipes__articles");
     filterElements(rechercheLettre, cards, allResultatRechercheRectte);
 });
@@ -36,10 +37,12 @@ function filterElements(letters, elements, newtTab){
         for(let i = 0 ; i < elements.length ; i++){
             if(elements[i].textContent.toLowerCase().includes(letters)){ //verifie si la cards contien les lettres saisies
                 elements[i].style.display = "block";
+                newtTab.push(elements[i]);
             } else {
                 elements[i].style.display = "none";
             }
         }
+        console.log(newtTab);
     }
 }
 
