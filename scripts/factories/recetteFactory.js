@@ -35,7 +35,7 @@ export function recetteFactory(recipe){
         const descrpt = document.createElement( 'p' );
         descrpt.textContent = description;
         descrpt.className = "all_recipes__articles__descritpion";
-        console.log(recipe);
+        
         article.appendChild(img);
         article.appendChild(nomRecette);
         article.appendChild(picto);
