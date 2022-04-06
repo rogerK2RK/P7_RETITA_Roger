@@ -31,6 +31,7 @@ barreDeRecherche.addEventListener("keyup", function(e){
     filterElements(rechercheLettre, cards, allResultatRechercheRectte);
 });
 
+//affiche seulement les cards avec les lettres rechecher
 function filterElements(letters, elements, newtTab){
     
     if(letters.length > 2){
@@ -44,6 +45,7 @@ function filterElements(letters, elements, newtTab){
         }
         console.log(newtTab);
     }
+    return (newtTab);
 }
 
 async function init() {
