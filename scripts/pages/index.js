@@ -91,6 +91,12 @@ const ingredientList = document.querySelector(".dropdownIngredients");
 ingredientsInput.addEventListener("click", function(){
     ingredientList.style.display = "block";
 });
+
+document.getElementById("body").addEventListener("click", function(e){
+    if(e.target != document.getElementById("ingredients")){
+    ingredientList.style.display = "none";
+    }
+});
 // const appareilsInput = document.querySelector(".inputRecherche__filter__appareils");
 // const outilsInput = document.querySelector(".inputRecherche__filter__outils");
 

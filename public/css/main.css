@@ -36,6 +36,7 @@ body {
 
 .inputRecherche__filter {
   text-align: center;
+  width: 100%;
 }
 
 .inputRecherche__filter__ingredients {
@@ -196,5 +197,6 @@ body {
 ul {
   list-style-type: none;
   margin: 0px;
+  width: 100%;
 }
 /*# sourceMappingURL=main.css.map */

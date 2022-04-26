@@ -27,6 +27,7 @@ body{
     line-height: 22px;
     &__filter{
         text-align: center;
+        width: 100%;
         &__ingredients{
             background: #3282F7;
         }
@@ -146,4 +147,5 @@ body{
 ul{
     list-style-type: none;
     margin: 0px;
+    width: 100%;
 }
