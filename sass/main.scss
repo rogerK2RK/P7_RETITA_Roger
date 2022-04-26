@@ -14,10 +14,10 @@ body{
 #barreDeRecherche{
     width: 100%;
     background: #E7E7E7;
+    margin-bottom: 15px;
 }
 .inputRecherche{
     border-radius: 5px;
-    margin-bottom: 15px;
     border: none;
     height: 55px;
     font-family: 'Lato';
@@ -26,7 +26,6 @@ body{
     font-size: 18px;
     line-height: 22px;
     &__filter{
-        color: red;
         text-align: center;
         &__ingredients{
             background: #3282F7;
@@ -39,10 +38,10 @@ body{
         }
     }
 }
-// .inputRecherche__filter::placeholder{
-//     color: #fff;
-//     opacity: 1;
-// }
+.inputRecherche__filter::placeholder, ul{
+    color: #fff;
+    opacity: 1;
+}
 .all_recipes{
     display: flex;
     flex-wrap: wrap;
@@ -121,4 +120,30 @@ body{
             text-overflow: ellipsis;
         }
     }
+}
+.allFilter{
+    margin-bottom: 15px;
+    display: flex;
+    &__one{
+        margin-right: 15px;
+    }
+}
+.dropdownIngredients{
+    background: #3282F7;
+    display: none; 
+}
+.dropdownAppareils{
+    background: #68D9A4;
+    display: none;
+}
+.dropdownUstensiles{
+    background: #ED6454;
+    display: none;
+}
+.allFilter{
+    display: flex;
+}
+ul{
+    list-style-type: none;
+    margin: 0px;
 }

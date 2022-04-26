@@ -1,5 +1,8 @@
 import { recetteFactory } from "../factories/recetteFactory.js";
 import { ingredientsFactory } from "../factories/ingredientsFactory.js";
+import { appareilsFactory } from "../factories/appareilsFactory.js";
+import { ustensilsFactory } from "../factories/ustensilsFactory.js";
+import {listeIngredient, listeAppareil, listeUstensils} from "../utils/filtres.js";
 
 async function getMenu() {
     
@@ -33,10 +36,6 @@ function search(recipeArray, inputValue) {
 }
 
 
-
-
-
-
 async function init() {
     // Récupère les datas des photographes
     const { recipes } = await getMenu();
@@ -60,21 +59,9 @@ async function init() {
     listeUstensils(recipes);
 }
 
-function listeIngredient(recipes){
-    const allIngredients = [];
-    for(let i = 0 ; i < recipes.length; i++){
-        let ingredients = recipes[i].ingredients;
-        ingredients.map(({ingredient}) => {
-            allIngredients.push(`${ingredient.toLowerCase()}`);
-        });
-    }
-    const ingredientsNoRepeat = [...new Set(allIngredients)].sort();
-    console.log(ingredientsNoRepeat);
-    displayIngredient(ingredientsNoRepeat);
-    return ingredientsNoRepeat;
-}
+init();
 
-async function displayIngredient(ingredientsNoRepeat){
+export async function displayIngredient(ingredientsNoRepeat){
     ingredientsNoRepeat.forEach((ingredient) => {
         const ingredientModel = ingredientsFactory(ingredient);
         const ingredientCardDOM = ingredientModel.getIngredientCardDOM();
@@ -82,31 +69,29 @@ async function displayIngredient(ingredientsNoRepeat){
     });
 } 
 
-function listeAppareil(recipes){
-    const allAppareil = [];
-    for(let i = 0 ; i < recipes.length; i++){
-        let appareils = recipes[i].appliance;
-        allAppareil.push(appareils.toLowerCase());
-    }
-    const appareilsNoRepeat = [...new Set(allAppareil)].sort();
-    console.log(appareilsNoRepeat);
-    return appareilsNoRepeat;
-}
+export async function displayAppareils(appareilsNoRepeat){
+    appareilsNoRepeat.forEach((appareil) => {
+        const appareilModel = appareilsFactory(appareil);
+        const appareilCardDOM = appareilModel.getAppareilCardDOM();
+        document.querySelector(".dropdownAppareils").appendChild(appareilCardDOM);
+    });
+} 
 
-function listeUstensils(recipes){
-    const allUstensils = [];
-    for(let i = 0 ; i < recipes.length; i++){
-        let ustensils = recipes[i].ustensils;
-        allUstensils.push(ustensils);
-    }
-    const ustensilssNoRepeat = [...new Set(allUstensils.flat())].sort();
-    console.log(ustensilssNoRepeat);
-    return ustensilssNoRepeat;
-}
+export async function displayUstensils(ingredientsNoRepeat){
+    ingredientsNoRepeat.forEach((ingredient) => {
+        const ingredientModel = ustensilsFactory(ingredient);
+        const ingredientCardDOM = ingredientModel.getUstensilCardDOM();
+        document.querySelector(".dropdownUstensiles").appendChild(ingredientCardDOM);
+    });
+} 
+
 // //recuperer les elements du dom les input
-// const ingredientsInput = document.querySelector(".inputRecherche__filter__ingredients");
+const ingredientsInput = document.querySelector(".inputRecherche__filter__ingredients");
+const ingredientList = document.querySelector(".dropdownIngredients");
+ingredientsInput.addEventListener("click", function(){
+    ingredientList.style.display = "block";
+});
 // const appareilsInput = document.querySelector(".inputRecherche__filter__appareils");
 // const outilsInput = document.querySelector(".inputRecherche__filter__outils");
 
 // const maListeAppliance = listeAppareil(recipes);
-init();

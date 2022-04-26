@@ -20,11 +20,11 @@ body {
 #barreDeRecherche {
   width: 100%;
   background: #E7E7E7;
+  margin-bottom: 15px;
 }
 
 .inputRecherche {
   border-radius: 5px;
-  margin-bottom: 15px;
   border: none;
   height: 55px;
   font-family: 'Lato';
@@ -35,7 +35,6 @@ body {
 }
 
 .inputRecherche__filter {
-  color: red;
   text-align: center;
 }
 
@@ -49,6 +48,26 @@ body {
 
 .inputRecherche__filter__outils {
   background: #ED6454;
+}
+
+.inputRecherche__filter::-webkit-input-placeholder, ul {
+  color: #fff;
+  opacity: 1;
+}
+
+.inputRecherche__filter:-ms-input-placeholder, ul {
+  color: #fff;
+  opacity: 1;
+}
+
+.inputRecherche__filter::-ms-input-placeholder, ul {
+  color: #fff;
+  opacity: 1;
+}
+
+.inputRecherche__filter::placeholder, ul {
+  color: #fff;
+  opacity: 1;
 }
 
 .all_recipes {
@@ -140,5 +159,42 @@ body {
   overflow: hidden;
   white-space: wrap;
   text-overflow: ellipsis;
+}
+
+.allFilter {
+  margin-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.allFilter__one {
+  margin-right: 15px;
+}
+
+.dropdownIngredients {
+  background: #3282F7;
+  display: none;
+}
+
+.dropdownAppareils {
+  background: #68D9A4;
+  display: none;
+}
+
+.dropdownUstensiles {
+  background: #ED6454;
+  display: none;
+}
+
+.allFilter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0px;
 }
 /*# sourceMappingURL=main.css.map */

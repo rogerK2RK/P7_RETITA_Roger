@@ -15,14 +15,26 @@
     <div>
       <input id="barreDeRecherche" class="inputRecherche" type="text" placeholder="Rechercher une recette">
       <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
-      <div>
-        <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__ingredients" placeholder="Ingredients">
-        <div class="dropdownIngredients">
+      <div class="allFilter">
+        <div class="allFilter__one">
+          <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__ingredients" placeholder="Ingredients">
+          <ul class="dropdownIngredients">
+          </ul>
+        </div>
+        <div class="allFilter__one">
+          <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__appareils" placeholder="Appareils">
+          <ul class="dropdownAppareils">
+          </ul>
+        </div>
+        <div class="allFilter__one">
+          <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__outils" placeholder="Ustensiles">
+          <ul class="dropdownUstensiles">
+          </ul>
         </div>
       </div>
       
-      <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__appareils" placeholder="Appareils">
-      <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__outils" placeholder="Ustensiles">
+      
+      
     </div>
     
     <main id="main">
