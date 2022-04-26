@@ -3,7 +3,6 @@
   <head>
     <link href="public/css/main.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
     <script src="https://kit.fontawesome.com/39ffa7a9ef.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Les petits plats</title>
@@ -13,7 +12,18 @@
       <i class="fa-thin fa-user-chef"></i>
         <h1 id="title">Les petits plats</h1>
     </header>
-    <input id="barreDeRecherche" type="text" placeholder="Rechercher une recette">
+    <div>
+      <input id="barreDeRecherche" class="inputRecherche" type="text" placeholder="Rechercher une recette">
+      <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
+      <div>
+        <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__ingredients" placeholder="Ingredients">
+        <div class="dropdownIngredients">
+        </div>
+      </div>
+      
+      <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__appareils" placeholder="Appareils">
+      <input type="text" class="inputRecherche inputRecherche__filter inputRecherche__filter__outils" placeholder="Ustensiles">
+    </div>
     
     <main id="main">
         <section class="all_recipes">

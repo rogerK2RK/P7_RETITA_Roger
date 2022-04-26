@@ -22,13 +22,7 @@ export function recetteFactory(recipe){
             let nameIngredient = ingredients[i].ingredient;
             let quantityIngredient = ingredients[i].quantity;
             let unitIngredient = ingredients[i].unit;
-            // if(quantityIngredient && unitIngredient){
                 elements += `<span class="all_recipes__articles__ingredients__nameIngredient">${nameIngredient}</span> : ${quantityIngredient ||""} ${unitIngredient ||""} <br>`;
-            // }else if (quantityIngredient) {
-                // elements += `<span class="all_recipes__articles__ingredients__nameIngredient">${nameIngredient}</span>: ${quantityIngredient} <br>`;
-            // } else{
-            //     elements +=`<span class="all_recipes__articles__ingredients__nameIngredient">${nameIngredient}</span><br>`;
-            // }
         }
         ingrdt.innerHTML = elements;
         ingrdt.className = "all_recipes__articles__ingredients";

@@ -14,8 +14,10 @@ body{
 #barreDeRecherche{
     width: 100%;
     background: #E7E7E7;
+}
+.inputRecherche{
     border-radius: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
     border: none;
     height: 55px;
     font-family: 'Lato';
@@ -23,8 +25,24 @@ body{
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
+    &__filter{
+        color: red;
+        text-align: center;
+        &__ingredients{
+            background: #3282F7;
+        }
+        &__appareils{
+            background: #68D9A4;
+        }
+        &__outils{
+            background: #ED6454;
+        }
+    }
 }
-
+// .inputRecherche__filter::placeholder{
+//     color: #fff;
+//     opacity: 1;
+// }
 .all_recipes{
     display: flex;
     flex-wrap: wrap;
