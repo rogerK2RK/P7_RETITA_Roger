@@ -10,7 +10,6 @@ export function listeIngredient(recipes){
         });
     }
     const ingredientsNoRepeat = [...new Set(allIngredients)].sort();
-    console.log(ingredientsNoRepeat);
     displayIngredient(ingredientsNoRepeat);
     return ingredientsNoRepeat;
 }
@@ -21,7 +20,6 @@ export function listeAppareil(recipes){
         allAppareil.push(appareils.toLowerCase());
     }
     const appareilsNoRepeat = [...new Set(allAppareil)].sort();
-    console.log(appareilsNoRepeat);
     displayAppareils(appareilsNoRepeat);
     return appareilsNoRepeat;
 }
@@ -33,7 +31,6 @@ export function listeUstensils(recipes){
         allUstensils.push(ustensils);
     }
     const ustensilsNoRepeat = [...new Set(allUstensils.flat())].sort();
-    console.log(ustensilsNoRepeat);
     displayUstensils(ustensilsNoRepeat);
     return ustensilsNoRepeat;
 }

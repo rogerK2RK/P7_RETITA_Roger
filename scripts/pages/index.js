@@ -61,6 +61,7 @@ async function init() {
 
 init();
 
+/** appel les factorys pour afficher les ingredients, Ustensils et appareils **/
 export async function displayIngredient(ingredientsNoRepeat){
     ingredientsNoRepeat.forEach((ingredient) => {
         const ingredientModel = ingredientsFactory(ingredient);
@@ -85,19 +86,27 @@ export async function displayUstensils(ingredientsNoRepeat){
     });
 } 
 
-// //recuperer les elements du dom les input
+//affiche la liste au click de l'input
 const ingredientsInput = document.querySelector(".inputRecherche__filter__ingredients");
 const ingredientList = document.querySelector(".dropdownIngredients");
 ingredientsInput.addEventListener("click", function(){
-    ingredientList.style.display = "block";
+    ingredientList.style.display = "flex";
 });
 
+const appareilsInput = document.querySelector(".inputRecherche__filter__appareils");
+const appareilList = document.querySelector(".dropdownAppareils");
+appareilsInput.addEventListener("click", function(){
+    appareilList.style.display = "flex";
+});
+
+//elève l'affichage des listes au click sur la page sauf dans les inputs
 document.getElementById("body").addEventListener("click", function(e){
     if(e.target != document.getElementById("ingredients")){
     ingredientList.style.display = "none";
     }
 });
-// const appareilsInput = document.querySelector(".inputRecherche__filter__appareils");
+
+
 // const outilsInput = document.querySelector(".inputRecherche__filter__outils");
 
 // const maListeAppliance = listeAppareil(recipes);

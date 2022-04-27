@@ -4,7 +4,7 @@
 }
 
 body {
-  margin: 100px;
+  padding: 100px;
 }
 
 #title {
@@ -176,11 +176,31 @@ body {
 .dropdownIngredients {
   background: #3282F7;
   display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding-top: 15px;
+  border-radius: 0 0 5px 5px;
+  width: 667px;
+  height: 397px;
 }
 
 .dropdownAppareils {
   background: #68D9A4;
   display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding-top: 15px;
+  border-radius: 0 0 5px 5px;
+  width: 300px;
+  height: 100%;
 }
 
 .dropdownUstensiles {
@@ -197,6 +217,11 @@ body {
 ul {
   list-style-type: none;
   margin: 0px;
-  width: 100%;
+}
+
+.ingredientListe {
+  margin-bottom: 10px;
+  margin-right: 15px;
+  width: 33%;
 }
 /*# sourceMappingURL=main.css.map */
