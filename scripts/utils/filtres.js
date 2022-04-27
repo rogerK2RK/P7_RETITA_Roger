@@ -10,7 +10,7 @@ export function listeIngredient(recipes){
         });
     }
     const ingredientsNoRepeat = [...new Set(allIngredients)].sort();
-    displayIngredient(ingredientsNoRepeat);
+    displayIngredient(ingredientsNoRepeat, recipes);
     return ingredientsNoRepeat;
 }
 export function listeAppareil(recipes){
