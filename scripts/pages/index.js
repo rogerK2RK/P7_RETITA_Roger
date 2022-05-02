@@ -16,6 +16,7 @@ async function getMenu() {
 // Appel la recetteFactory pour afficher les recettes
 async function displayData(recipes) {
     document.querySelector(".all_recipes").innerHTML = "";
+    // créer un tableau récuperant les elements afficher pour pouvoir l'utiliser dans les fintres 
     recipes.forEach((recipe) => {
         const recipeModel = recetteFactory(recipe);
         const userCardDOM = recipeModel.getUserCardDOM();
@@ -35,16 +36,16 @@ function search(recipeArray, inputValue) {
     return result;
 }
 
-// export function ingredientSearch(recipes, ingredient){
-//     const result = recipes.filter(function(recipe) {
-//         return recipe.name.toLowerCase().includes(ingredient) || recipe.description.toLowerCase().includes(ingredient)
-//             ||  recipe.ingredients.some(function(ingredientObj) {
-//               return ingredientObj.ingredient.toLowerCase().includes(ingredient.toLowerCase())
-//             });
-//     });
-
-//     return result;
-// }
+export function ingredientSearch(recipes, ingredient){
+    const result = recipes.filter(function(recipe) {
+        return recipe.ingredients.some(function(ingredientObj) {
+            return ingredientObj.ingredient.toLowerCase().includes(ingredient.toLowerCase())
+          });
+    });
+    displayData(result);
+    console.log(result);
+    return result;
+}
 
 async function init() {
     // Récupère les datas des photographes
@@ -61,8 +62,9 @@ async function init() {
         displayData(filteredRecipes);
         // const applianceList = generateAppliance(filteredRecipes);
     });
+    let tabTag = new Array(); 
     //Recupère les ingredients sans doublant
-    listeIngredient(recipes);
+    listeIngredient(recipes, tabTag);
     //Recupère les appareils sans doublant
     listeAppareil(recipes);
     //Recupère les ustensil sans doublant
@@ -72,9 +74,9 @@ async function init() {
 init();
 
 /** appel les factorys pour afficher les ingredients, Ustensils et appareils **/
-export async function displayIngredient(ingredientsNoRepeat, recipes){
+export async function displayIngredient(ingredientsNoRepeat, recipes, tabTag){
     ingredientsNoRepeat.forEach((ingredient) => {
-        const ingredientModel = ingredientsFactory(ingredient, recipes);
+        const ingredientModel = ingredientsFactory(ingredient, recipes, tabTag);
         const ingredientCardDOM = ingredientModel.getIngredientCardDOM();
         document.querySelector(".dropdownIngredients").appendChild(ingredientCardDOM);
     });

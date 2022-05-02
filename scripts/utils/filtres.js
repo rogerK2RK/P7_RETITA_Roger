@@ -1,7 +1,7 @@
 import {displayIngredient, displayAppareils, displayUstensils} from "../pages/index.js";
 
 
-export function listeIngredient(recipes){
+export function listeIngredient(recipes, tabTag){
     const allIngredients = [];
     for(let i = 0 ; i < recipes.length; i++){
         let ingredients = recipes[i].ingredients;
@@ -10,7 +10,7 @@ export function listeIngredient(recipes){
         });
     }
     const ingredientsNoRepeat = [...new Set(allIngredients)].sort();
-    displayIngredient(ingredientsNoRepeat, recipes);
+    displayIngredient(ingredientsNoRepeat, recipes, tabTag);
     return ingredientsNoRepeat;
 }
 export function listeAppareil(recipes){

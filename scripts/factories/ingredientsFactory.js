@@ -1,6 +1,6 @@
-// import { ingredientSearch } from "../pages/index.js";
+import { ingredientSearch } from "../pages/index.js";
 
-export function ingredientsFactory(ingredient, recipes){
+export function ingredientsFactory(ingredient, recipes, tabTag){
 
     function getIngredientCardDOM(){
         let link = document.createElement('a');
@@ -8,12 +8,14 @@ export function ingredientsFactory(ingredient, recipes){
         liste.textContent = ingredient;
         link.className = "ingredientListe";
         link.addEventListener("click", function(){
-            // ingredientSearch(recipes, ingredient);
-            console.log(recipes);
+            ingredientSearch(recipes, ingredient);
+            tabTag.push(ingredient);
+            console.log(tabTag);
         });
-
         link.appendChild(liste);
-        return (link);
+        return (link , tabTag);
     }
     return {getIngredientCardDOM}
+    
+    
 }
