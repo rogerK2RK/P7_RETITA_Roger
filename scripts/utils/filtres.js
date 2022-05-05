@@ -1,7 +1,6 @@
-import {displayIngredient, displayAppareils, displayUstensils} from "../pages/index.js";
 
 
-export function listeIngredient(recipes, tabTag){
+export function listeIngredient(recipes){
     const allIngredients = [];
     for(let i = 0 ; i < recipes.length; i++){
         let ingredients = recipes[i].ingredients;
@@ -10,9 +9,9 @@ export function listeIngredient(recipes, tabTag){
         });
     }
     const ingredientsNoRepeat = [...new Set(allIngredients)].sort();
-    displayIngredient(ingredientsNoRepeat, recipes, tabTag);
     return ingredientsNoRepeat;
 }
+
 export function listeAppareil(recipes){
     const allAppareil = [];
     for(let i = 0 ; i < recipes.length; i++){
@@ -20,7 +19,6 @@ export function listeAppareil(recipes){
         allAppareil.push(appareils.toLowerCase());
     }
     const appareilsNoRepeat = [...new Set(allAppareil)].sort();
-    displayAppareils(appareilsNoRepeat);
     return appareilsNoRepeat;
 }
 
@@ -31,6 +29,5 @@ export function listeUstensils(recipes){
         allUstensils.push(ustensils);
     }
     const ustensilsNoRepeat = [...new Set(allUstensils.flat())].sort();
-    displayUstensils(ustensilsNoRepeat);
     return ustensilsNoRepeat;
 }
