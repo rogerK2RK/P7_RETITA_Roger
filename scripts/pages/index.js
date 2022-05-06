@@ -55,20 +55,22 @@ export function ingredientSearch(recipes, ingredient){
 
 export function appareilSearch(recipes, appareil){
     const result = recipes.filter(function(recipe) {
-        return recipe.appliance.toLowerCase().includes(appareil)
+        return recipe.appliance.toLowerCase().includes(appareil.toLowerCase())
     });
     displayData(result);
     return result;
 }
 
-// export function ustensilSearch(recipes, ustensil){
-//     const result = recipes.filter(function(recipe) {
-//         return recipe.ustensils.toLowerCase().includes(ustensil)
-//     });
-//     console.log(result);
-//     displayData(result);
-//     return result;
-// }
+export function ustensilSearch(recipes, ustensil){
+    const result = recipes.filter(function(recipe) {
+        return recipe.ustensils.some(function(ust){
+            return ust.toLowerCase().includes(ustensil.toLowerCase())
+        });
+    });
+    // console.log(result);
+    displayData(result);
+    return result;
+}
 
 async function init() {
     // Récupère les datas des photographes
@@ -92,6 +94,7 @@ async function init() {
     ingredientTab = listeIngredient(recipes);
     displayIngredient(ingredientTab);
 
+    //recupère les éléments du dom
     const ingredientsLiDOM = [...document.querySelectorAll(".ingredientListe li")];
 
     ingredientsLiDOM.forEach(function(li) {
@@ -108,6 +111,7 @@ async function init() {
     appareiltTab = listeAppareil(recipes);
     displayAppareils(appareiltTab);
 
+    //recupère les éléments du dom
     const appareilsLiDOM = [...document.querySelectorAll(".appareilListe li")];
 
     appareilsLiDOM.forEach(function(li) {
@@ -123,12 +127,13 @@ async function init() {
     ustensilTab = listeUstensils(recipes);
     displayUstensils(ustensilTab);
 
+    //recupère les éléments du dom
     const ustensilsLiDOM = [...document.querySelectorAll(".ustensilsListe li")];
 
     ustensilsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
             // console.log(li.textContent);
-            // activeRecipesTab = ustensilSearch(activeRecipesTab, li.textContent);
+            activeRecipesTab = ustensilSearch(activeRecipesTab, li.textContent);
             tabTag.push(li.textContent);
             console.log(tabTag);
         });
