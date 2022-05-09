@@ -1,4 +1,3 @@
-// import { ingredientSearch } from "../pages/index.js";
 
 export function ingredientsFactory(ingredient){
 
@@ -6,7 +5,7 @@ export function ingredientsFactory(ingredient){
         let link = document.createElement('a');
         let liste = document.createElement('li');
         liste.textContent = ingredient;
-        link.className = "ingredientListe";
+        link.className = "ingredientListe callTag";
         link.appendChild(liste);
         return (link);
     }

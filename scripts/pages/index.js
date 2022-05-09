@@ -2,6 +2,7 @@ import { recetteFactory } from "../factories/recetteFactory.js";
 import { ingredientsFactory } from "../factories/ingredientsFactory.js";
 import { appareilsFactory } from "../factories/appareilsFactory.js";
 import { ustensilsFactory } from "../factories/ustensilsFactory.js";
+import { tagFactory } from "../factories/tagFactory.js";
 import {listeIngredient, listeAppareil, listeUstensils} from "../utils/filtres.js";
 
 let activeRecipesTab = [];
@@ -102,11 +103,11 @@ async function init() {
             // console.log(li.textContent);
             activeRecipesTab = ingredientSearch(activeRecipesTab, li.textContent);
             tabTag.push(li.textContent);
-            console.log(tabTag);
+            // displayTag(tabTag);
+            // console.log([...new Set(tabTag)]);
         });
     });
 
-    
     //Recupère les appareils sans doublant
     appareiltTab = listeAppareil(recipes);
     displayAppareils(appareiltTab);
@@ -119,7 +120,8 @@ async function init() {
             // console.log(li.textContent);
             activeRecipesTab = appareilSearch(activeRecipesTab, li.textContent);
             tabTag.push(li.textContent);
-            console.log(tabTag);
+            // displayTag(tabTag);
+            // console.log([...new Set(tabTag)]);
         });
     });
 
@@ -135,9 +137,18 @@ async function init() {
             // console.log(li.textContent);
             activeRecipesTab = ustensilSearch(activeRecipesTab, li.textContent);
             tabTag.push(li.textContent);
-            console.log(tabTag);
+            // displayTag(tabTag);
+            // console.log([...new Set(tabTag)]);
         });
     });
+
+    const callTag = [...document.querySelectorAll(".callTag li")];
+
+    callTag.forEach(function(li){
+        li.addEventListener("click", function(){
+            displayTag(tabTag);
+        })
+    })
 }
 
 init();
@@ -161,12 +172,19 @@ export async function displayAppareils(appareilsNoRepeat){
 
 export async function displayUstensils(ingredientsNoRepeat){
     ingredientsNoRepeat.forEach((ingredient) => {
-        const ingredientModel = ustensilsFactory(ingredient);
-        const ingredientCardDOM = ingredientModel.getUstensilCardDOM();
-        document.querySelector(".dropdownUstensiles").appendChild(ingredientCardDOM);
+        const ustensilModel = ustensilsFactory(ingredient);
+        const ustensilCardDOM = ustensilModel.getUstensilCardDOM();
+        document.querySelector(".dropdownUstensiles").appendChild(ustensilCardDOM);
     });
 } 
-
+export async function displayTag(tabTag){
+    tabTag.forEach((tag) => {
+    document.querySelector(".allTag").innerHTML = "";
+        const tagModel = tagFactory(tag);
+        const tagCardDom = tagModel.getTagCardDOM();
+        document.querySelector(".allTag").appendChild(tagCardDom);
+    });
+}
 //affiche la liste au click de l'input
 const ingredientsInput = document.querySelector(".inputRecherche__filter__ingredients");
 const ingredientList = document.querySelector(".dropdownIngredients");

@@ -4,7 +4,7 @@ export function ustensilsFactory(ustensils){
         let link = document.createElement('a');
         let liste = document.createElement('li');
         liste.textContent = ustensils;
-        link.className = "ustensilsListe";
+        link.className = "ustensilsListe callTag";
         link.appendChild(liste);
         return (link);
     }

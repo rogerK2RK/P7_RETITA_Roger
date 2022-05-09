@@ -4,7 +4,7 @@ export function appareilsFactory(appareils){
         let link = document.createElement('a');
         let liste = document.createElement('li');
         liste.textContent = appareils;
-        link.className = "appareilListe";
+        link.className = "appareilListe callTag";
         link.appendChild(liste);
         return (link);
     }
