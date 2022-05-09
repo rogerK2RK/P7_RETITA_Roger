@@ -100,11 +100,9 @@ async function init() {
 
     ingredientsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
-            // console.log(li.textContent);
             activeRecipesTab = ingredientSearch(activeRecipesTab, li.textContent);
             tabTag.push(li.textContent);
-            // displayTag(tabTag);
-            // console.log([...new Set(tabTag)]);
+            displayTag(tabTag);
         });
     });
 
@@ -117,11 +115,9 @@ async function init() {
 
     appareilsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
-            // console.log(li.textContent);
             activeRecipesTab = appareilSearch(activeRecipesTab, li.textContent);
             tabTag.push(li.textContent);
-            // displayTag(tabTag);
-            // console.log([...new Set(tabTag)]);
+            displayTag(tabTag);
         });
     });
 
@@ -134,21 +130,20 @@ async function init() {
 
     ustensilsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
-            // console.log(li.textContent);
             activeRecipesTab = ustensilSearch(activeRecipesTab, li.textContent);
             tabTag.push(li.textContent);
-            // displayTag(tabTag);
-            // console.log([...new Set(tabTag)]);
+            displayTag(tabTag);
         });
     });
 
-    const callTag = [...document.querySelectorAll(".callTag li")];
+    // const callTag = [...document.querySelectorAll(".callTag li")];
+    // const boxTag = document.querySelector(".allTag");
 
-    callTag.forEach(function(li){
-        li.addEventListener("click", function(){
-            displayTag(tabTag);
-        })
-    })
+    // callTag.forEach(function(li){
+    //     li.addEventListener("click", function(){
+    //         boxTag.style.display = "block";
+    //     });
+    // });
 }
 
 init();
@@ -179,7 +174,6 @@ export async function displayUstensils(ingredientsNoRepeat){
 } 
 export async function displayTag(tabTag){
     tabTag.forEach((tag) => {
-    document.querySelector(".allTag").innerHTML = "";
         const tagModel = tagFactory(tag);
         const tagCardDom = tagModel.getTagCardDOM();
         document.querySelector(".allTag").appendChild(tagCardDom);
