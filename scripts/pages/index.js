@@ -50,7 +50,6 @@ export function ingredientSearch(recipes, ingredient){
           });
     });
     displayData(result);
-    // console.log(result);
     return result;
 }
 
@@ -68,7 +67,6 @@ export function ustensilSearch(recipes, ustensil){
             return ust.toLowerCase().includes(ustensil.toLowerCase())
         });
     });
-    // console.log(result);
     displayData(result);
     return result;
 }
@@ -81,13 +79,13 @@ async function init() {
 
     /* Recherche avec la barre de recherche */
 
+    // accer au DOM 
     const barreDeRecherche = document.querySelector("#barreDeRecherche");
 
     barreDeRecherche.addEventListener("keyup", function(e){
         const rechercheLettre = e.target.value.toLowerCase();
         const filteredRecipes = search(recipes, rechercheLettre);
         displayData(filteredRecipes);
-        // const applianceList = generateAppliance(filteredRecipes);
     });
     let tabTag = new Array(); 
 
@@ -101,8 +99,10 @@ async function init() {
     ingredientsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
             activeRecipesTab = ingredientSearch(activeRecipesTab, li.textContent);
-            tabTag.push(li.textContent);
-            displayTag(tabTag);
+            if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
+                tabTag.push({value: li.textContent, type: "ingredient"});
+                displayTag(tabTag);
+            }
         });
     });
 
@@ -116,8 +116,10 @@ async function init() {
     appareilsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
             activeRecipesTab = appareilSearch(activeRecipesTab, li.textContent);
-            tabTag.push(li.textContent);
-            displayTag(tabTag);
+            if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
+                tabTag.push({value: li.textContent, type: "appareil"});
+                displayTag(tabTag);
+            }
         });
     });
 
@@ -131,19 +133,12 @@ async function init() {
     ustensilsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
             activeRecipesTab = ustensilSearch(activeRecipesTab, li.textContent);
-            tabTag.push(li.textContent);
-            displayTag(tabTag);
+            if (!tabTag.some((tagObj) => tagObj.value ===  li.textContent)) {
+                tabTag.push({value: li.textContent, type: "ustensil"});
+                displayTag(tabTag);
+            }
         });
     });
-
-    // const callTag = [...document.querySelectorAll(".callTag li")];
-    // const boxTag = document.querySelector(".allTag");
-
-    // callTag.forEach(function(li){
-    //     li.addEventListener("click", function(){
-    //         boxTag.style.display = "block";
-    //     });
-    // });
 }
 
 init();
@@ -165,14 +160,15 @@ export async function displayAppareils(appareilsNoRepeat){
     });
 } 
 
-export async function displayUstensils(ingredientsNoRepeat){
-    ingredientsNoRepeat.forEach((ingredient) => {
+export async function displayUstensils(ustensilsNoRepeat){
+    ustensilsNoRepeat.forEach((ingredient) => {
         const ustensilModel = ustensilsFactory(ingredient);
         const ustensilCardDOM = ustensilModel.getUstensilCardDOM();
         document.querySelector(".dropdownUstensiles").appendChild(ustensilCardDOM);
     });
 } 
 export async function displayTag(tabTag){
+    document.querySelector(".allTag").innerHTML = "";
     tabTag.forEach((tag) => {
         const tagModel = tagFactory(tag);
         const tagCardDom = tagModel.getTagCardDOM();
@@ -199,19 +195,15 @@ outilsInput.addEventListener("click", function(){
 });
 
 //elève l'affichage des listes au click sur la page sauf dans les inputs
-// document.getElementById("body").addEventListener("click", function(e){
-//     if(e.target != document.getElementById("ingredients")){
-//         ingredientList.style.display = "none";
-//         console.log("Hello");
-//     }
-//     if(e.target != document.getElementById("appareils")){
-//         appareilList.style.display = "none";
-//     }
-//     if(e.target != document.getElementById("ustensiles")){
-//         outilList.style.display = "none";
-//     }
-// });
+document.getElementById("body").addEventListener("click", function(e){
+    if(!document.querySelector(".allFilter__one").contains(e.target)){
+        ingredientList.style.display = "none";
+    }
+    if(!document.querySelector(".allFilter__two").contains(e.target)){
+        appareilList.style.display = "none";
+    }
+    if(!document.querySelector(".allFilter__three").contains(e.target)){
+        outilList.style.display = "none";
+    }
+});
 
-
-
-// const maListeAppliance = listeAppareil(recipes);
