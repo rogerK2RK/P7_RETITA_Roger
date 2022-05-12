@@ -43,6 +43,20 @@ function search(recipeArray, inputValue) {
     return result;
 }
 
+
+export function searchWithTag(tabTag){
+    for(let i = 0 ; i < tabTag.length ; i++ ){
+        if(tabTag[i].type === "ingredient"){
+            activeRecipesTab = ingredientSearch(activeRecipesTab, tabTag[i].value);
+        } else if(tabTag[i].type === "appareil"){
+            activeRecipesTab = appareilSearch(activeRecipesTab, tabTag[i].value);
+        } else if(tabTag[i].type === "ustensil"){
+            activeRecipesTab = ustensilSearch(activeRecipesTab, tabTag[i].value);
+        }  
+        displayTag(tabTag);
+    }
+}
+
 export function ingredientSearch(recipes, ingredient){
     const result = recipes.filter(function(recipe) {
         return recipe.ingredients.some(function(ingredientObj) {
@@ -98,10 +112,10 @@ async function init() {
 
     ingredientsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
-            activeRecipesTab = ingredientSearch(activeRecipesTab, li.textContent);
+            // activeRecipesTab = ingredientSearch(activeRecipesTab, li.textContent);
             if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
                 tabTag.push({value: li.textContent, type: "ingredient"});
-                displayTag(tabTag);
+                searchWithTag(tabTag);
             }
         });
     });
@@ -115,10 +129,9 @@ async function init() {
 
     appareilsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
-            activeRecipesTab = appareilSearch(activeRecipesTab, li.textContent);
             if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
                 tabTag.push({value: li.textContent, type: "appareil"});
-                displayTag(tabTag);
+                searchWithTag(tabTag)
             }
         });
     });
@@ -132,13 +145,22 @@ async function init() {
 
     ustensilsLiDOM.forEach(function(li) {
         li.addEventListener("click", function(){
-            activeRecipesTab = ustensilSearch(activeRecipesTab, li.textContent);
             if (!tabTag.some((tagObj) => tagObj.value ===  li.textContent)) {
                 tabTag.push({value: li.textContent, type: "ustensil"});
-                displayTag(tabTag);
+                searchWithTag(tabTag)
             }
         });
     });
+
+    /**Delet tag */
+    const iconLiDom = [...document.querySelectorAll(".tag i")];
+    iconLiDom.forEach(function(i){
+        i.addEventListener("click", function(){
+            console.log("Hello");
+            // console.log(tagsLiDom);
+        });
+    });
+
 }
 
 init();
