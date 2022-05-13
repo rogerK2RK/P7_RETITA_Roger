@@ -9,6 +9,7 @@ let activeRecipesTab = [];
 let ingredientTab = [];
 let appareiltTab = [];
 let ustensilTab = [];
+let tabTag = new Array(); 
 
 
 async function getMenu() {
@@ -101,7 +102,6 @@ async function init() {
         const filteredRecipes = search(recipes, rechercheLettre);
         displayData(filteredRecipes);
     });
-    let tabTag = new Array(); 
 
     //Recupère les ingredients sans doublant
     ingredientTab = listeIngredient(recipes);
@@ -151,15 +151,22 @@ async function init() {
             }
         });
     });
-
-    /**Delet tag */
-    const iconLiDom = [...document.querySelectorAll(".tag i")];
-    iconLiDom.forEach(function(i){
-        i.addEventListener("click", function(){
-            console.log("Hello");
-            // console.log(tagsLiDom);
-        });
-    });
+}
+/**Delet tag */
+export async function deleteTag(tabValue){
+    console.log(tabTag);
+    for(let i = 0 ; i < tabTag.length ; i++){
+        if(tabTag[i].value === tabValue){
+            const newTabTag = tabTag.filter((item) => item.value !== tabValue);
+            console.log(newTabTag);
+            searchWithTag(newTabTag);
+            displayTag(newTabTag);
+            /**Si le tableau de tag est vide */
+            if(newTabTag.length == 0){
+                console.log("le tableau est vide");
+            }
+        }
+    }
 
 }
 

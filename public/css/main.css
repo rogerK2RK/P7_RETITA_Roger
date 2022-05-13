@@ -32,10 +32,12 @@ body {
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  position: relative;
 }
 
 .inputRecherche__filter {
-  text-align: center;
+  text-align: left;
+  padding-left: 10px;
   width: 100%;
 }
 
@@ -49,6 +51,22 @@ body {
 
 .inputRecherche__filter__outils {
   background: #ED6454;
+}
+
+.inputRecherche::-webkit-input-placeholder {
+  padding-left: 10px;
+}
+
+.inputRecherche:-ms-input-placeholder {
+  padding-left: 10px;
+}
+
+.inputRecherche::-ms-input-placeholder {
+  padding-left: 10px;
+}
+
+.inputRecherche::placeholder {
+  padding-left: 10px;
 }
 
 .inputRecherche__filter::-webkit-input-placeholder, ul {
@@ -171,6 +189,7 @@ body {
 
 .allFilter__box {
   margin-right: 15px;
+  position: relative;
 }
 
 .dropdownIngredients {
@@ -237,6 +256,7 @@ ul {
 
 .allTag {
   margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .tag {
@@ -251,5 +271,23 @@ ul {
   line-height: 22px;
   margin-right: 15px;
   text-align: left;
+}
+
+.fa-search {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 28px;
+}
+
+.fa-chevron-down {
+  position: absolute;
+  color: #fff;
+  top: 22px;
+  right: 5px;
+}
+
+.fa-times-circle-o {
+  margin-left: 10px;
 }
 /*# sourceMappingURL=main.css.map */

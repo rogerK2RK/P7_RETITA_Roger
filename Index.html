@@ -3,33 +3,40 @@
   <head>
     <link href="public/css/main.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
+    <!-- <script src="https://use.fontawesome.com/1d3f1fc481.js"></script> -->
     <script src="https://kit.fontawesome.com/39ffa7a9ef.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Les petits plats</title>
   </head>
   <body id="body">
     <header>
-      <i class="fa-thin fa-user-chef"></i>
+      <i class="fa-light fa-hat-chef"></i>
         <h1 id="title">Les petits plats</h1>
     </header>
     <div>
-      <input id="barreDeRecherche" class="inputRecherche" type="text" placeholder="Rechercher une recette">
-      <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
+      <div class="inputRecherche">
+        <input id="barreDeRecherche" class="inputRecherche" type="text" placeholder="Rechercher une recette">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+      
       <div class="allTag">
       </div>
       <div class="allFilter">
         <div class="allFilter__box allFilter__one">
           <input type="text" id="ingredients" class="inputRecherche inputRecherche__filter inputRecherche__filter__ingredients" placeholder="Ingredients">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
           <ul id="ingredientsList" class="dropdownIngredients">
           </ul>
         </div>
         <div class="allFilter__box allFilter__two">
           <input type="text" id="appareils" class="inputRecherche inputRecherche__filter inputRecherche__filter__appareils" placeholder="Appareils">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
           <ul id="appareilsList" class="dropdownAppareils">
           </ul>
         </div>
         <div class="allFilter__box allFilter__three">
           <input type="text" id="ustensiles" class="inputRecherche inputRecherche__filter inputRecherche__filter__outils" placeholder="Ustensiles">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
           <ul id="ustensilesList" class="dropdownUstensiles">
           </ul>
         </div>

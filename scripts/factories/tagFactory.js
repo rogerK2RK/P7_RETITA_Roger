@@ -1,3 +1,4 @@
+import { deleteTag } from "../pages/index.js";
 export function tagFactory(tabTag){
 
     function getTagCardDOM(){
@@ -13,6 +14,10 @@ export function tagFactory(tabTag){
             tag.classList.add("inputRecherche__filter__ingredients");
         }
         tag.classList.add("tag");
+
+        icon.addEventListener("click", function(){
+            deleteTag(tabTag.value);
+        });
 
         tag.appendChild(icon);
         return (tag);
