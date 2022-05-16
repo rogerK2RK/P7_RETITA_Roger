@@ -1,9 +1,9 @@
 
 
-export function listeIngredient(recipes){
+export function listeIngredient(activeRecipesTab){
     const allIngredients = [];
-    for(let i = 0 ; i < recipes.length; i++){
-        let ingredients = recipes[i].ingredients;
+    for(let i = 0 ; i < activeRecipesTab.length; i++){
+        let ingredients = activeRecipesTab[i].ingredients;
         ingredients.map(({ingredient}) => {
             allIngredients.push(`${ingredient.toLowerCase()}`);
         });

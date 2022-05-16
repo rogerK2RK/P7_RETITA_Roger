@@ -44,6 +44,12 @@ function search(recipeArray, inputValue) {
     return result;
 }
 
+function searchInputTag(ingredientTab, inputValue){
+    const result = ingredientTab.filter(function(tag){
+        return tag.toLowerCase().includes(inputValue);
+    });
+    return result;
+}
 
 export function searchWithTag(tabTag){
     for(let i = 0 ; i < tabTag.length ; i++ ){
@@ -104,8 +110,19 @@ async function init() {
     });
 
     //Recupère les ingredients sans doublant
-    ingredientTab = listeIngredient(recipes);
+    ingredientTab = listeIngredient(activeRecipesTab);
     displayIngredient(ingredientTab);
+
+    /** CHearch by input ingredient */
+    const inptIngredient = document.querySelector("#ingredients");
+
+    inptIngredient.addEventListener("keyup", function(e){
+        const rechercheLettre = e.target.value.toLowerCase();
+        const filteredRecipes = searchInputTag(ingredientTab, rechercheLettre);
+        displayIngredient(filteredRecipes);
+    });
+
+    
 
     //recupère les éléments du dom
     const ingredientsLiDOM = [...document.querySelectorAll(".ingredientListe li")];
@@ -116,6 +133,12 @@ async function init() {
             if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
                 tabTag.push({value: li.textContent, type: "ingredient"});
                 searchWithTag(tabTag);
+                ingredientTab = listeIngredient(activeRecipesTab);
+                displayIngredient(ingredientTab);
+                appareiltTab = listeAppareil(activeRecipesTab);
+                displayAppareils(appareiltTab);
+                ustensilTab = listeUstensils(activeRecipesTab);
+                displayUstensils(ustensilTab);
             }
         });
     });
@@ -124,6 +147,14 @@ async function init() {
     appareiltTab = listeAppareil(recipes);
     displayAppareils(appareiltTab);
 
+    /** CHearch by input appareil */
+    const inptAppareil = document.querySelector("#appareils");
+
+    inptAppareil.addEventListener("keyup", function(e){
+        const rechercheLettre = e.target.value.toLowerCase();
+        const filteredRecipes = searchInputTag(appareiltTab, rechercheLettre);
+        displayAppareils(filteredRecipes);
+    });
     //recupère les éléments du dom
     const appareilsLiDOM = [...document.querySelectorAll(".appareilListe li")];
 
@@ -131,7 +162,11 @@ async function init() {
         li.addEventListener("click", function(){
             if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
                 tabTag.push({value: li.textContent, type: "appareil"});
-                searchWithTag(tabTag)
+                searchWithTag(tabTag);
+                appareiltTab = listeAppareil(activeRecipesTab);
+                displayAppareils(appareiltTab);
+                ustensilTab = listeUstensils(activeRecipesTab);
+                displayUstensils(ustensilTab);
             }
         });
     });
@@ -140,6 +175,14 @@ async function init() {
     ustensilTab = listeUstensils(recipes);
     displayUstensils(ustensilTab);
 
+    /** CHearch by input appareil */
+    const inptUstensil = document.querySelector("#ustensiles");
+
+    inptUstensil.addEventListener("keyup", function(e){
+        const rechercheLettre = e.target.value.toLowerCase();
+        const filteredRecipes = searchInputTag(ustensilTab, rechercheLettre);
+        displayUstensils(filteredRecipes);
+    });
     //recupère les éléments du dom
     const ustensilsLiDOM = [...document.querySelectorAll(".ustensilsListe li")];
 
@@ -147,7 +190,13 @@ async function init() {
         li.addEventListener("click", function(){
             if (!tabTag.some((tagObj) => tagObj.value ===  li.textContent)) {
                 tabTag.push({value: li.textContent, type: "ustensil"});
-                searchWithTag(tabTag)
+                searchWithTag(tabTag);
+                ingredientTab = listeIngredient(activeRecipesTab);
+                displayIngredient(ingredientTab);
+                appareiltTab = listeAppareil(activeRecipesTab);
+                displayAppareils(appareiltTab);
+                ustensilTab = listeUstensils(activeRecipesTab);
+                displayUstensils(ustensilTab);
             }
         });
     });
@@ -174,6 +223,7 @@ init();
 
 /** appel les factorys pour afficher les ingredients, Ustensils et appareils **/
 export async function displayIngredient(ingredientsNoRepeat){
+    document.querySelector(".dropdownIngredients").innerHTML = "";
     ingredientsNoRepeat.forEach((ingredient) => {
         const ingredientModel = ingredientsFactory(ingredient);
         const ingredientCardDOM = ingredientModel.getIngredientCardDOM();
@@ -182,6 +232,7 @@ export async function displayIngredient(ingredientsNoRepeat){
 } 
 
 export async function displayAppareils(appareilsNoRepeat){
+    document.querySelector(".dropdownAppareils").innerHTML = "";
     appareilsNoRepeat.forEach((appareil) => {
         const appareilModel = appareilsFactory(appareil);
         const appareilCardDOM = appareilModel.getAppareilCardDOM();
@@ -190,6 +241,7 @@ export async function displayAppareils(appareilsNoRepeat){
 } 
 
 export async function displayUstensils(ustensilsNoRepeat){
+    document.querySelector(".dropdownUstensiles").innerHTML = "";
     ustensilsNoRepeat.forEach((ingredient) => {
         const ustensilModel = ustensilsFactory(ingredient);
         const ustensilCardDOM = ustensilModel.getUstensilCardDOM();
