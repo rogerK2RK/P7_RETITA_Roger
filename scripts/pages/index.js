@@ -3,8 +3,10 @@ import { ingredientsFactory } from "../factories/ingredientsFactory.js";
 import { appareilsFactory } from "../factories/appareilsFactory.js";
 import { ustensilsFactory } from "../factories/ustensilsFactory.js";
 import { tagFactory } from "../factories/tagFactory.js";
-import {listeIngredient, listeAppareil, listeUstensils} from "../utils/filtres.js";
+import { listeIngredient, listeAppareil, listeUstensils } from "../utils/filtres.js";
+import { ingredientSearch, appareilSearch, ustensilSearch  } from "../search/index.js";
 
+let recipes = [];
 let activeRecipesTab = [];
 let ingredientTab = [];
 let appareiltTab = [];
@@ -44,14 +46,15 @@ function search(recipeArray, inputValue) {
     return result;
 }
 
-function searchInputTag(ingredientTab, inputValue){
-    const result = ingredientTab.filter(function(tag){
+function searchInputTag(tagTab, inputValue){
+    const result = tagTab.filter(function(tag){
         return tag.toLowerCase().includes(inputValue);
     });
     return result;
 }
 
-export function searchWithTag(tabTag){
+function searchWithTag(tabTag){
+    activeRecipesTab = [...recipes];
     for(let i = 0 ; i < tabTag.length ; i++ ){
         if(tabTag[i].type === "ingredient"){
             activeRecipesTab = ingredientSearch(activeRecipesTab, tabTag[i].value);
@@ -62,39 +65,15 @@ export function searchWithTag(tabTag){
         }  
         displayTag(tabTag);
     }
+    displayData(activeRecipesTab);
 }
 
-export function ingredientSearch(recipes, ingredient){
-    const result = recipes.filter(function(recipe) {
-        return recipe.ingredients.some(function(ingredientObj) {
-            return ingredientObj.ingredient.toLowerCase().includes(ingredient.toLowerCase())
-          });
-    });
-    displayData(result);
-    return result;
-}
 
-export function appareilSearch(recipes, appareil){
-    const result = recipes.filter(function(recipe) {
-        return recipe.appliance.toLowerCase().includes(appareil.toLowerCase())
-    });
-    displayData(result);
-    return result;
-}
-
-export function ustensilSearch(recipes, ustensil){
-    const result = recipes.filter(function(recipe) {
-        return recipe.ustensils.some(function(ust){
-            return ust.toLowerCase().includes(ustensil.toLowerCase())
-        });
-    });
-    displayData(result);
-    return result;
-}
 
 async function init() {
     // Récupère les datas des photographes
-    const { recipes } = await getMenu();
+    const { recipes: recipesJson } = await getMenu();
+    recipes = [...recipesJson];
     activeRecipesTab = [...recipes];
     displayData(recipes);
 
@@ -104,44 +83,53 @@ async function init() {
     const barreDeRecherche = document.querySelector("#barreDeRecherche");
 
     barreDeRecherche.addEventListener("keyup", function(e){
-        const rechercheLettre = e.target.value.toLowerCase();
-        const filteredRecipes = search(recipes, rechercheLettre);
-        displayData(filteredRecipes);
+        if(e.target.value.length > 2 ){
+            const rechercheLettre = e.target.value.toLowerCase();
+            let filteredRecipes = search(recipes, rechercheLettre);
+            activeRecipesTab = displayData(filteredRecipes);
+            ingredientTab = listeIngredient(activeRecipesTab)
+            displayIngredient(ingredientTab);
+        }
     });
 
     //Recupère les ingredients sans doublant
     ingredientTab = listeIngredient(activeRecipesTab);
     displayIngredient(ingredientTab);
+    console.log(ingredientTab);
 
     /** CHearch by input ingredient */
     const inptIngredient = document.querySelector("#ingredients");
 
     inptIngredient.addEventListener("keyup", function(e){
         const rechercheLettre = e.target.value.toLowerCase();
-        const filteredRecipes = searchInputTag(ingredientTab, rechercheLettre);
+        let filteredRecipes = searchInputTag(ingredientTab, rechercheLettre);
         displayIngredient(filteredRecipes);
     });
 
-    
 
-    //recupère les éléments du dom
+    function addIngClickListenerIngredient() {
+        //recupère les éléments du dom
     const ingredientsLiDOM = [...document.querySelectorAll(".ingredientListe li")];
-
-    ingredientsLiDOM.forEach(function(li) {
-        li.addEventListener("click", function(){
-            // activeRecipesTab = ingredientSearch(activeRecipesTab, li.textContent);
-            if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
-                tabTag.push({value: li.textContent, type: "ingredient"});
-                searchWithTag(tabTag);
-                ingredientTab = listeIngredient(activeRecipesTab);
-                displayIngredient(ingredientTab);
-                appareiltTab = listeAppareil(activeRecipesTab);
-                displayAppareils(appareiltTab);
-                ustensilTab = listeUstensils(activeRecipesTab);
-                displayUstensils(ustensilTab);
-            }
+        ingredientsLiDOM.forEach(function(li) {
+            li.addEventListener("click", function(){
+                if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
+                    tabTag.push({value: li.textContent, type: "ingredient"});
+                    searchWithTag(tabTag);
+                    ingredientTab = listeIngredient(activeRecipesTab);
+                    displayIngredient(ingredientTab);
+                    addIngClickListenerIngredient();
+                    appareiltTab = listeAppareil(activeRecipesTab);
+                    displayAppareils(appareiltTab);
+                    addIngClickListenerAppareil();
+                    ustensilTab = listeUstensils(activeRecipesTab);
+                    displayUstensils(ustensilTab);
+                    addIngClickListenerUstensil();
+                }
+            });
         });
-    });
+    }
+    
+    addIngClickListenerIngredient();
 
     //Recupère les appareils sans doublant
     appareiltTab = listeAppareil(recipes);
@@ -155,21 +143,30 @@ async function init() {
         const filteredRecipes = searchInputTag(appareiltTab, rechercheLettre);
         displayAppareils(filteredRecipes);
     });
-    //recupère les éléments du dom
-    const appareilsLiDOM = [...document.querySelectorAll(".appareilListe li")];
 
-    appareilsLiDOM.forEach(function(li) {
-        li.addEventListener("click", function(){
-            if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
-                tabTag.push({value: li.textContent, type: "appareil"});
-                searchWithTag(tabTag);
-                appareiltTab = listeAppareil(activeRecipesTab);
-                displayAppareils(appareiltTab);
-                ustensilTab = listeUstensils(activeRecipesTab);
-                displayUstensils(ustensilTab);
-            }
+    function addIngClickListenerAppareil(){
+        //recupère les éléments du dom
+        const appareilsLiDOM = [...document.querySelectorAll(".appareilListe li")];
+
+        appareilsLiDOM.forEach(function(li) {
+            li.addEventListener("click", function(){
+                if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
+                    tabTag.push({value: li.textContent, type: "appareil"});
+                    searchWithTag(tabTag);
+                    ingredientTab = listeIngredient(activeRecipesTab);
+                    displayIngredient(ingredientTab);
+                    addIngClickListenerIngredient();
+                    appareiltTab = listeAppareil(activeRecipesTab);
+                    displayAppareils(appareiltTab);
+                    addIngClickListenerAppareil();
+                    ustensilTab = listeUstensils(activeRecipesTab);
+                    displayUstensils(ustensilTab);
+                    addIngClickListenerUstensil();
+                }
+            });
         });
-    });
+    }
+    addIngClickListenerAppareil();
 
     //Recupère les ustensil sans doublant
     ustensilTab = listeUstensils(recipes);
@@ -183,43 +180,51 @@ async function init() {
         const filteredRecipes = searchInputTag(ustensilTab, rechercheLettre);
         displayUstensils(filteredRecipes);
     });
-    //recupère les éléments du dom
-    const ustensilsLiDOM = [...document.querySelectorAll(".ustensilsListe li")];
 
-    ustensilsLiDOM.forEach(function(li) {
-        li.addEventListener("click", function(){
-            if (!tabTag.some((tagObj) => tagObj.value ===  li.textContent)) {
-                tabTag.push({value: li.textContent, type: "ustensil"});
-                searchWithTag(tabTag);
-                ingredientTab = listeIngredient(activeRecipesTab);
-                displayIngredient(ingredientTab);
-                appareiltTab = listeAppareil(activeRecipesTab);
-                displayAppareils(appareiltTab);
-                ustensilTab = listeUstensils(activeRecipesTab);
-                displayUstensils(ustensilTab);
-            }
+    function addIngClickListenerUstensil(){
+        //recupère les éléments du dom
+        const ustensilsLiDOM = [...document.querySelectorAll(".ustensilsListe li")];
+
+        ustensilsLiDOM.forEach(function(li) {
+            li.addEventListener("click", function(){
+                if (!tabTag.some((tagObj) => tagObj.value ===  li.textContent)) {
+                    tabTag.push({value: li.textContent, type: "ustensil"});
+                    searchWithTag(tabTag);
+                    ingredientTab = listeIngredient(activeRecipesTab);
+                    displayIngredient(ingredientTab);
+                    addIngClickListenerIngredient();
+                    appareiltTab = listeAppareil(activeRecipesTab);
+                    displayAppareils(appareiltTab);
+                    addIngClickListenerAppareil();
+                    ustensilTab = listeUstensils(activeRecipesTab);
+                    displayUstensils(ustensilTab);
+                    addIngClickListenerUstensil();
+                }
+            });
         });
-    });
-}
-/**Delet tag */
-export async function deleteTag(tabValue){
-    console.log(tabTag);
-    for(let i = 0 ; i < tabTag.length ; i++){
-        if(tabTag[i].value === tabValue){
-            const newTabTag = tabTag.filter((item) => item.value !== tabValue);
-            console.log(newTabTag);
-            searchWithTag(newTabTag);
-            displayTag(newTabTag);
-            /**Si le tableau de tag est vide */
-            if(newTabTag.length == 0){
-                console.log("le tableau est vide");
-            }
-        }
     }
-
+    addIngClickListenerUstensil();
+    
 }
 
 init();
+
+/**Delet tag */
+export async function deleteTag(tabValue){
+    let newTabTag = [];
+
+    for(let i = 0 ; i < tabTag.length ; i++){
+        if(tabTag[i].value === tabValue){
+            newTabTag = tabTag.filter((item) => item.value !== tabValue);
+            searchWithTag(newTabTag);
+            displayTag(newTabTag);
+        }
+    }
+
+    tabTag = [...newTabTag];
+
+}
+
 
 /** appel les factorys pour afficher les ingredients, Ustensils et appareils **/
 export async function displayIngredient(ingredientsNoRepeat){
