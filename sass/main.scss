@@ -3,12 +3,17 @@
     font-style: normal;
 }
 body{
-    padding: 100px ;
+    padding: 50px 100px ;
 }
-#title{
+.content-header{
     display: flex;
     justify-content: center;
     color: #D04F4F;
+}
+
+img{
+    display: block;
+    margin: 0px auto;
 }
 
 #barreDeRecherche{
@@ -71,6 +76,12 @@ body{
         overflow: hidden;
         text-overflow: ellipsis;
         border-radius: 5px;
+        @media all and (max-width:992px) {
+            width: 46%;
+        }
+        @media all and (max-width:770px) {
+            width: 100%;
+        }
         
         &__images{
             width: 100%;
