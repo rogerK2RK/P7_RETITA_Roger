@@ -86,16 +86,22 @@ async function init() {
         if(e.target.value.length > 2 ){
             const rechercheLettre = e.target.value.toLowerCase();
             let filteredRecipes = search(recipes, rechercheLettre);
-            activeRecipesTab = displayData(filteredRecipes);
-            ingredientTab = listeIngredient(activeRecipesTab)
+            displayData(filteredRecipes);
+            ingredientTab = listeIngredient(filteredRecipes);
             displayIngredient(ingredientTab);
+            appareiltTab = listeAppareil(filteredRecipes);
+            displayAppareils(appareiltTab);
+            ustensilTab = listeUstensils(filteredRecipes);
+            displayUstensils(ustensilTab);
+            addIngClickListenerIngredient();
+            addIngClickListenerAppareil();
+            addIngClickListenerUstensil();
         }
     });
 
     //Recupère les ingredients sans doublant
     ingredientTab = listeIngredient(activeRecipesTab);
     displayIngredient(ingredientTab);
-    console.log(ingredientTab);
 
     /** CHearch by input ingredient */
     const inptIngredient = document.querySelector("#ingredients");
@@ -104,6 +110,7 @@ async function init() {
         const rechercheLettre = e.target.value.toLowerCase();
         let filteredRecipes = searchInputTag(ingredientTab, rechercheLettre);
         displayIngredient(filteredRecipes);
+        addIngClickListenerIngredient();
     });
 
 
@@ -142,6 +149,7 @@ async function init() {
         const rechercheLettre = e.target.value.toLowerCase();
         const filteredRecipes = searchInputTag(appareiltTab, rechercheLettre);
         displayAppareils(filteredRecipes);
+        addIngClickListenerAppareil();
     });
 
     function addIngClickListenerAppareil(){
@@ -179,6 +187,7 @@ async function init() {
         const rechercheLettre = e.target.value.toLowerCase();
         const filteredRecipes = searchInputTag(ustensilTab, rechercheLettre);
         displayUstensils(filteredRecipes);
+        addIngClickListenerUstensil();
     });
 
     function addIngClickListenerUstensil(){
