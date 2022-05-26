@@ -7,6 +7,7 @@ import { listeIngredient, listeAppareil, listeUstensils } from "../utils/filtres
 import { ingredientSearch, appareilSearch, ustensilSearch  } from "../search/index.js";
 
 let recipes = [];
+let searchRecipes = [];
 let activeRecipesTab = [];
 let ingredientTab = [];
 let appareiltTab = [];
@@ -54,7 +55,7 @@ function searchInputTag(tagTab, inputValue){
 }
 
 function searchWithTag(tabTag){
-    activeRecipesTab = [...recipes];
+    activeRecipesTab = [...searchRecipes];
     for(let i = 0 ; i < tabTag.length ; i++ ){
         if(tabTag[i].type === "ingredient"){
             activeRecipesTab = ingredientSearch(activeRecipesTab, tabTag[i].value);
@@ -75,6 +76,7 @@ async function init() {
     const { recipes: recipesJson } = await getMenu();
     recipes = [...recipesJson];
     activeRecipesTab = [...recipes];
+    searchRecipes = [...recipes];
     displayData(recipes);
 
     /* Recherche avec la barre de recherche */
@@ -85,13 +87,13 @@ async function init() {
     barreDeRecherche.addEventListener("keyup", function(e){
         if(e.target.value.length > 2 ){
             const rechercheLettre = e.target.value.toLowerCase();
-            let filteredRecipes = search(recipes, rechercheLettre);
-            displayData(filteredRecipes);
-            ingredientTab = listeIngredient(filteredRecipes);
+            searchRecipes = search(recipes, rechercheLettre);
+            displayData(searchRecipes);
+            ingredientTab = listeIngredient(searchRecipes);
             displayIngredient(ingredientTab);
-            appareiltTab = listeAppareil(filteredRecipes);
+            appareiltTab = listeAppareil(searchRecipes);
             displayAppareils(appareiltTab);
-            ustensilTab = listeUstensils(filteredRecipes);
+            ustensilTab = listeUstensils(searchRecipes);
             displayUstensils(ustensilTab);
             addIngClickListenerIngredient();
             addIngClickListenerAppareil();
@@ -114,27 +116,7 @@ async function init() {
     });
 
 
-    function addIngClickListenerIngredient() {
-        //recupère les éléments du dom
-    const ingredientsLiDOM = [...document.querySelectorAll(".ingredientListe li")];
-        ingredientsLiDOM.forEach(function(li) {
-            li.addEventListener("click", function(){
-                if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
-                    tabTag.push({value: li.textContent, type: "ingredient"});
-                    searchWithTag(tabTag);
-                    ingredientTab = listeIngredient(activeRecipesTab);
-                    displayIngredient(ingredientTab);
-                    addIngClickListenerIngredient();
-                    appareiltTab = listeAppareil(activeRecipesTab);
-                    displayAppareils(appareiltTab);
-                    addIngClickListenerAppareil();
-                    ustensilTab = listeUstensils(activeRecipesTab);
-                    displayUstensils(ustensilTab);
-                    addIngClickListenerUstensil();
-                }
-            });
-        });
-    }
+
     
     addIngClickListenerIngredient();
 
@@ -152,28 +134,7 @@ async function init() {
         addIngClickListenerAppareil();
     });
 
-    function addIngClickListenerAppareil(){
-        //recupère les éléments du dom
-        const appareilsLiDOM = [...document.querySelectorAll(".appareilListe li")];
-
-        appareilsLiDOM.forEach(function(li) {
-            li.addEventListener("click", function(){
-                if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
-                    tabTag.push({value: li.textContent, type: "appareil"});
-                    searchWithTag(tabTag);
-                    ingredientTab = listeIngredient(activeRecipesTab);
-                    displayIngredient(ingredientTab);
-                    addIngClickListenerIngredient();
-                    appareiltTab = listeAppareil(activeRecipesTab);
-                    displayAppareils(appareiltTab);
-                    addIngClickListenerAppareil();
-                    ustensilTab = listeUstensils(activeRecipesTab);
-                    displayUstensils(ustensilTab);
-                    addIngClickListenerUstensil();
-                }
-            });
-        });
-    }
+    
     addIngClickListenerAppareil();
 
     //Recupère les ustensil sans doublant
@@ -190,34 +151,78 @@ async function init() {
         addIngClickListenerUstensil();
     });
 
-    function addIngClickListenerUstensil(){
-        //recupère les éléments du dom
-        const ustensilsLiDOM = [...document.querySelectorAll(".ustensilsListe li")];
-
-        ustensilsLiDOM.forEach(function(li) {
-            li.addEventListener("click", function(){
-                if (!tabTag.some((tagObj) => tagObj.value ===  li.textContent)) {
-                    tabTag.push({value: li.textContent, type: "ustensil"});
-                    searchWithTag(tabTag);
-                    ingredientTab = listeIngredient(activeRecipesTab);
-                    displayIngredient(ingredientTab);
-                    addIngClickListenerIngredient();
-                    appareiltTab = listeAppareil(activeRecipesTab);
-                    displayAppareils(appareiltTab);
-                    addIngClickListenerAppareil();
-                    ustensilTab = listeUstensils(activeRecipesTab);
-                    displayUstensils(ustensilTab);
-                    addIngClickListenerUstensil();
-                }
-            });
-        });
-    }
+    
     addIngClickListenerUstensil();
     
 }
 
 init();
+function addIngClickListenerIngredient() {
+    //recupère les éléments du dom
+const ingredientsLiDOM = [...document.querySelectorAll(".ingredientListe li")];
+    ingredientsLiDOM.forEach(function(li) {
+        li.addEventListener("click", function(){
+            if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
+                tabTag.push({value: li.textContent, type: "ingredient"});
+                searchWithTag(tabTag);
+                ingredientTab = listeIngredient(activeRecipesTab);
+                displayIngredient(ingredientTab);
+                addIngClickListenerIngredient();
+                appareiltTab = listeAppareil(activeRecipesTab);
+                displayAppareils(appareiltTab);
+                addIngClickListenerAppareil();
+                ustensilTab = listeUstensils(activeRecipesTab);
+                displayUstensils(ustensilTab);
+                addIngClickListenerUstensil();
+            }
+        });
+    });
+}
+function addIngClickListenerAppareil(){
+    //recupère les éléments du dom
+    const appareilsLiDOM = [...document.querySelectorAll(".appareilListe li")];
 
+    appareilsLiDOM.forEach(function(li) {
+        li.addEventListener("click", function(){
+            if(!tabTag.some((tagObj) => tagObj.value === li.textContent)){
+                tabTag.push({value: li.textContent, type: "appareil"});
+                searchWithTag(tabTag);
+                ingredientTab = listeIngredient(activeRecipesTab);
+                displayIngredient(ingredientTab);
+                addIngClickListenerIngredient();
+                appareiltTab = listeAppareil(activeRecipesTab);
+                displayAppareils(appareiltTab);
+                addIngClickListenerAppareil();
+                ustensilTab = listeUstensils(activeRecipesTab);
+                displayUstensils(ustensilTab);
+                addIngClickListenerUstensil();
+            }
+        });
+    });
+}
+
+function addIngClickListenerUstensil(){
+    //recupère les éléments du dom
+    const ustensilsLiDOM = [...document.querySelectorAll(".ustensilsListe li")];
+
+    ustensilsLiDOM.forEach(function(li) {
+        li.addEventListener("click", function(){
+            if (!tabTag.some((tagObj) => tagObj.value ===  li.textContent)) {
+                tabTag.push({value: li.textContent, type: "ustensil"});
+                searchWithTag(tabTag);
+                ingredientTab = listeIngredient(activeRecipesTab);
+                displayIngredient(ingredientTab);
+                addIngClickListenerIngredient();
+                appareiltTab = listeAppareil(activeRecipesTab);
+                displayAppareils(appareiltTab);
+                addIngClickListenerAppareil();
+                ustensilTab = listeUstensils(activeRecipesTab);
+                displayUstensils(ustensilTab);
+                addIngClickListenerUstensil();
+            }
+        });
+    });
+}
 /**Delet tag */
 export async function deleteTag(tabValue){
     let newTabTag = [];
@@ -227,6 +232,15 @@ export async function deleteTag(tabValue){
             newTabTag = tabTag.filter((item) => item.value !== tabValue);
             searchWithTag(newTabTag);
             displayTag(newTabTag);
+            ingredientTab = listeIngredient(activeRecipesTab);
+            displayIngredient(ingredientTab);
+            addIngClickListenerIngredient();
+            appareiltTab = listeAppareil(activeRecipesTab);
+            displayAppareils(appareiltTab);
+            addIngClickListenerAppareil();
+            ustensilTab = listeUstensils(activeRecipesTab);
+            displayUstensils(ustensilTab);
+            addIngClickListenerUstensil();
         }
     }
 
@@ -234,7 +248,7 @@ export async function deleteTag(tabValue){
 
 }
 
-
+ 
 /** appel les factorys pour afficher les ingredients, Ustensils et appareils **/
 export async function displayIngredient(ingredientsNoRepeat){
     document.querySelector(".dropdownIngredients").innerHTML = "";
@@ -269,6 +283,7 @@ export async function displayTag(tabTag){
         const tagCardDom = tagModel.getTagCardDOM();
         document.querySelector(".allTag").appendChild(tagCardDom);
     });
+
 }
 //affiche la liste au click de l'input
 const ingredientsInput = document.querySelector(".inputRecherche__filter__ingredients");
