@@ -44,7 +44,15 @@ function search(recipeArray, inputValue) {
             });
     });
 
+    // for(let recipe of recipeArray){
+    //     return recipe.name.toLowerCase().includes(inputValue) || recipe.description.toLowerCase().includes(inputValue)
+    //     ||  recipe.ingredients.some(function(ingredientObj) {
+    //       return ingredientObj.ingredient.toLowerCase().includes(inputValue.toLowerCase())
+    //     });
+    // }
+
     return result;
+
 }
 
 function searchInputTag(tagTab, inputValue){
@@ -88,6 +96,7 @@ async function init() {
         if(e.target.value.length > 2 ){
             const rechercheLettre = e.target.value.toLowerCase();
             searchRecipes = search(recipes, rechercheLettre);
+            console.log(searchRecipes);
             displayData(searchRecipes);
             ingredientTab = listeIngredient(searchRecipes);
             displayIngredient(ingredientTab);
