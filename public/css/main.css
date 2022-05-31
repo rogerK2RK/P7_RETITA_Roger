@@ -199,7 +199,6 @@ img {
   height: 29%;
   margin: 0px;
   overflow: hidden;
-  white-space: wrap;
   text-overflow: ellipsis;
 }
 
