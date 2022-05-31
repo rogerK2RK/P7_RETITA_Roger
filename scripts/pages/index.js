@@ -37,21 +37,18 @@ async function displayData(recipes) {
 
 // compare la saisi avec les elements des ingrédients
 function search(recipeArray, inputValue) {
-    const result = recipeArray.filter(function(recipe) {
-        return recipe.name.toLowerCase().includes(inputValue) || recipe.description.toLowerCase().includes(inputValue)
-            ||  recipe.ingredients.some(function(ingredientObj) {
-              return ingredientObj.ingredient.toLowerCase().includes(inputValue.toLowerCase())
-            });
-    });
+    let tabResult = [];
+    for(let recipe of recipeArray){
+        if(recipe.name.toLowerCase().includes(inputValue) || recipe.description.toLowerCase().includes(inputValue)
+        ||  recipe.ingredients.some(function(ingredientObj) {
+          return ingredientObj.ingredient.toLowerCase().includes(inputValue.toLowerCase())
+        })){
+            tabResult.push(recipe);
+        }
+         
+    }
 
-    // for(let recipe of recipeArray){
-    //     return recipe.name.toLowerCase().includes(inputValue) || recipe.description.toLowerCase().includes(inputValue)
-    //     ||  recipe.ingredients.some(function(ingredientObj) {
-    //       return ingredientObj.ingredient.toLowerCase().includes(inputValue.toLowerCase())
-    //     });
-    // }
-
-    return result;
+    return tabResult;
 
 }
 
@@ -96,7 +93,6 @@ async function init() {
         if(e.target.value.length > 2 ){
             const rechercheLettre = e.target.value.toLowerCase();
             searchRecipes = search(recipes, rechercheLettre);
-            console.log(searchRecipes);
             displayData(searchRecipes);
             ingredientTab = listeIngredient(searchRecipes);
             displayIngredient(ingredientTab);
