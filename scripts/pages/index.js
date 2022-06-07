@@ -38,12 +38,12 @@ async function displayData(recipes) {
 // compare la saisi avec les elements des ingrédients
 function search(recipeArray, inputValue) {
     let tabResult = [];
-    for(let recipe of recipeArray){
-        if(recipe.name.toLowerCase().includes(inputValue) || recipe.description.toLowerCase().includes(inputValue)
-        ||  recipe.ingredients.some(function(ingredientObj) {
+    for(let i = 0 ; i < recipeArray.length ; i++){
+        if(recipeArray[i].name.toLowerCase().includes(inputValue) || recipeArray[i].description.toLowerCase().includes(inputValue)
+        ||  recipeArray[i].ingredients.some(function(ingredientObj) {
           return ingredientObj.ingredient.toLowerCase().includes(inputValue.toLowerCase())
         })){
-            tabResult.push(recipe);
+            tabResult.push(recipeArray[i]);
         }
          
     }
