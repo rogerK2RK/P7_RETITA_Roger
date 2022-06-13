@@ -83,9 +83,10 @@ async function init() {
 
     // accer au DOM 
     const barreDeRecherche = document.querySelector("#barreDeRecherche");
+    const erreurRecherche = document.querySelector(".erreur-search");
 
     barreDeRecherche.addEventListener("keyup", function(e){
-        if(e.target.value.length > 2 ){
+        if( /^([a-z]{2,})$/.test(e.target.value) ){
             const rechercheLettre = e.target.value.toLowerCase();
             searchRecipes = search(recipes, rechercheLettre);
             displayData(searchRecipes);
@@ -98,6 +99,9 @@ async function init() {
             addIngClickListenerIngredient();
             addIngClickListenerAppareil();
             addIngClickListenerUstensil();
+            erreurRecherche.innerText = "";
+        }else{
+            erreurRecherche.innerText = "* Veuillez saisir 3 caractères minimum. Et pas de signe spéciaux ou de chiffre !";
         }
     });
 
@@ -107,12 +111,20 @@ async function init() {
 
     /** CHearch by input ingredient */
     const inptIngredient = document.querySelector("#ingredients");
+    const erreurIngredient = document.querySelector(".errorIngredient");
 
     inptIngredient.addEventListener("keyup", function(e){
-        const rechercheLettre = e.target.value.toLowerCase();
-        let filteredRecipes = searchInputTag(ingredientTab, rechercheLettre);
-        displayIngredient(filteredRecipes);
-        addIngClickListenerIngredient();
+        if( /^([a-z]{2,})$/.test(e.target.value) ){
+            const rechercheLettre = e.target.value.toLowerCase();
+            let filteredRecipes = searchInputTag(ingredientTab, rechercheLettre);
+            displayIngredient(filteredRecipes);
+            addIngClickListenerIngredient();
+            erreurIngredient.style.display = "none";
+            erreurIngredient.innerText = "";
+        }else{
+            erreurIngredient.style.display = "block";
+            erreurIngredient.innerText = "* Veuillez ne pas saisir de chiffre !";
+        }
     });
 
 
@@ -126,12 +138,20 @@ async function init() {
 
     /** CHearch by input appareil */
     const inptAppareil = document.querySelector("#appareils");
+    const erreurAppareil = document.querySelector(".errorAppareil");
 
     inptAppareil.addEventListener("keyup", function(e){
+        if( /^([a-z]{2,})$/.test(e.target.value) ){
         const rechercheLettre = e.target.value.toLowerCase();
         const filteredRecipes = searchInputTag(appareiltTab, rechercheLettre);
         displayAppareils(filteredRecipes);
         addIngClickListenerAppareil();
+        erreurAppareil.style.display = "none";
+        erreurAppareil.innerText = "";
+        }else{
+            erreurAppareil.style.display = "block";
+            erreurAppareil.innerText = "* Veuillez ne pas saisir de chiffre !";
+        }
     });
 
     
@@ -143,12 +163,20 @@ async function init() {
 
     /** CHearch by input appareil */
     const inptUstensil = document.querySelector("#ustensiles");
+    const erreurUstensil = document.querySelector(".errorUstensile");
 
     inptUstensil.addEventListener("keyup", function(e){
+        if( /^([a-z]{2,})$/.test(e.target.value) ){
         const rechercheLettre = e.target.value.toLowerCase();
         const filteredRecipes = searchInputTag(ustensilTab, rechercheLettre);
         displayUstensils(filteredRecipes);
         addIngClickListenerUstensil();
+        erreurUstensil.style.display = "none";
+        erreurUstensil.innerText = "";
+        }else{
+            erreurUstensil.style.display = "block";
+            erreurUstensil.innerText = "* Veuillez ne pas saisir de chiffre !";
+        }
     });
 
     

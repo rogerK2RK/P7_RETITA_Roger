@@ -326,4 +326,31 @@ ul {
 .fa-times-circle-o {
   margin-left: 10px;
 }
+
+.erreur-search {
+  color: #D04F4F;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.errorIngredient {
+  padding-left: 15px;
+  margin: 0px;
+  color: #fff;
+  background-color: #3282F7;
+}
+
+.errorAppareil {
+  padding-left: 15px;
+  margin: 0px;
+  color: #fff;
+  background-color: #68D9A4;
+}
+
+.errorUstensile {
+  padding-left: 15px;
+  margin: 0px;
+  color: #fff;
+  background-color: #ED6454;
+}
 /*# sourceMappingURL=main.css.map */
