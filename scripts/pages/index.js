@@ -103,6 +103,10 @@ async function init() {
         }else{
             erreurRecherche.innerText = "* Veuillez saisir 3 caractères minimum. Et pas de signe spéciaux ou de chiffre !";
         }
+        //message d'erreu pour l'affichage
+        if(searchRecipes.length === 0){
+            erreurRecherche.innerText = "* Votre saisi ne correspond à aucun élément des recettes ! Veiller re-saisir !";
+        }
     });
 
     //Recupère les ingredients sans doublant
