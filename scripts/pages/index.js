@@ -37,14 +37,19 @@ async function displayData(recipes) {
 
 // compare la saisi avec les elements des ingrédients
 function search(recipeArray, inputValue) {
-    const result = recipeArray.filter(function(recipe) {
-        return recipe.name.toLowerCase().includes(inputValue) || recipe.description.toLowerCase().includes(inputValue)
-            ||  recipe.ingredients.some(function(ingredientObj) {
-              return ingredientObj.ingredient.toLowerCase().includes(inputValue.toLowerCase())
-            });
-    });
+    let tabResult = [];
+    for(let i = 0 ; i < recipeArray.length ; i++){
+        if(recipeArray[i].name.toLowerCase().includes(inputValue) || recipeArray[i].description.toLowerCase().includes(inputValue)
+        ||  recipeArray[i].ingredients.some(function(ingredientObj) {
+          return ingredientObj.ingredient.toLowerCase().includes(inputValue.toLowerCase())
+        })){
+            tabResult.push(recipeArray[i]);
+        }
+         
+    }
 
-    return result;
+    return tabResult;
+
 }
 
 function searchInputTag(tagTab, inputValue){
